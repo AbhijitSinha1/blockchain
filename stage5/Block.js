@@ -2,22 +2,27 @@
 var _ = require('lodash');
 var PW = require('./proof_of_work.js');
 
-class Block {
+module.exports = class Block {
   constructor (prev_block, msg) {
     this.own_hash = null;
     this.nonce = null;
 
     this.prev_block_hash = prev_block && prev_block.getHash();
     this.msg = msg;
+    this.mine_block();
   }
 
   mine_block() {
     this.nonce = PW.find_nonce(`${this.prev_block_hash} ${this.msg}`);
-    this.own_hash = PW.hash(this.full_block(nonce))
+    this.own_hash = PW.hash(this.full_block(this.nonce))
   }
 
   isValid() {
     this.PW.is_valid_nonce(this.own_hash);
+  }
+
+  getHash() {
+    return this.own_hash;
   }
 
   toString() {
@@ -35,4 +40,4 @@ class Block {
   full_block() {
     return _.join([this.prev_block_hash, this.msg, this.own_hash, this.nonce], '-');
   }
-}
+};

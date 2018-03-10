@@ -1,9 +1,9 @@
 var Block = require('./Block.js');
-var lodash = require('lodash');
+var _ = require('lodash');
 var each_cons = require('each-cons');
 
-class BlockChain {
-  constructor (msg) {
+module.exports = class BlockChain {
+  constructor () {
     this.blocks = [];
     this.generateGenesisBlock();
   }

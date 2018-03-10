@@ -17,8 +17,8 @@ function next (string) {
   }
 
   if (index === -1) {
-    //console.log(_.repeat(String.fromCharCode(FIRST), length + 1));
-    console.log('...');
+    // console.log(_.repeat(String.fromCharCode(FIRST), length + 1));
+    // console.log('...');
     return _.repeat(String.fromCharCode(FIRST), length + 1);
   }
 
@@ -44,9 +44,10 @@ exports.find_nonce = function(message) {
   var nonce = "The quick brown fox jumps over the lazy dog"
   var count = 0
 
-  while (!is_valid_nonce(nonce, message)) {
+  while (!this.is_valid_nonce(nonce, message)) {
     nonce = next(nonce);
     count += 1;
   }
-  console.log(count, nonce, hash(message + nonce));
+  console.log(count, nonce, this.hash(message + nonce));
+  return nonce;
 }
